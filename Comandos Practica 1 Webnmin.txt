@@ -1,0 +1,14 @@
+sudo apt update
+sudo apt install wget curl gnupg -y
+
+sudo nano /etc/apt/sources.list
+
+deb http://download.webmin.com/download/repository sarge contrib
+
+wget -q http://www.webmin.com/jcameron-key.asc -O- | sudo apt-key add -
+
+sudo apt update
+sudo apt install webmin -y
+
+
+wget -q0- http://www.webmin.com/jcameron-key.asc | sudo gpg --dearmor -o /usr/share/keyrings/webmin.gpg

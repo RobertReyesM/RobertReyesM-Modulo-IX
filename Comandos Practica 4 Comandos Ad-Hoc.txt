@@ -1,0 +1,22 @@
+
+#Comandos Ad-Hoc Copy Windows
+
+
+ansible windows -m win_ping
+
+ansible windows -m win_copy -a 'src=c:\\Users\\Nombre_De_Tu_Usuario\\Desktop\\Nombre_Del_Documento_De_Texto.txt dest=c:\\Users\\Nombre_De_Tu_Usuario\\Documents\\Nombre_Del_Documento_De_Texto.txt remote_src=yes'
+
+
+
+
+#Comandos Ad-Hoc Reboot Linux
+
+
+ansible Linux -m ping
+
+ansible Linux -m reboot
+
+ansible Linux -m reboot -b
+
+ansible Linux -m reboot -b --ask-become-pass
+

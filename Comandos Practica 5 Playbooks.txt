@@ -1,0 +1,56 @@
+#Comandos Playbook Para Instalar NGINX En Linux
+
+sudo nano instalar_nginx_kali.yml
+
+
+---
+- name: Instalar y configurar NGINX en Kali Linux
+  hosts: kali
+  become: true
+  tasks:
+
+    - name: Actualizar el índice de paquetes
+      ansible.builtin.apt:
+        update_cache: yes
+
+    - name: Instalar NGINX
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+
+    - name: Iniciar y habilitar el servicio NGINX
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: yes
+
+
+
+ansible-playbook -i inventario.ini instalar_nginx.yml
+
+
+
+
+#Comandos Playbook Para Instalar Notepad++ Windows
+
+
+sudo nano windows.yml
+
+
+---
+- name: Descargar e instalar Notepad++ en Windows 10
+  hosts: windows
+  tasks:
+    - name: Descargar instalador de Notepad++
+      win_get_url:
+        url: https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.5.3/npp.8.5.3.Installer.x64.exe
+        dest: C:\Users\ansible2\Downloads\npp_installer.exe
+
+    - name: Ejecutar el instalador de Notepad++
+      win_package:
+        path: C:\Users\ansible2\Downloads\npp_installer.exe
+        arguments: /S
+        state: present
+
+
+ansible-playbook windows.yml

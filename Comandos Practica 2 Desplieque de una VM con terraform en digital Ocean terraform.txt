@@ -1,0 +1,46 @@
+sudo apt update
+
+sudo apt install terraform
+
+terraform -version
+
+terraform init
+
+
+
+terraform {
+  required_providers {
+    digitalocean = {
+      source  = "digitalocean/digitalocean"
+      version = "~> 2.0"
+    }
+  }
+}
+
+provider "digitalocean" {
+  token = "TU_API_TOKEN"
+}
+
+resource "digitalocean_droplet" "OS3vm" {
+  image     = "ubuntu-22-04-x64"
+  name      = "OS3vm"
+  region    = "nyc1"
+  size      = "s-1vcpu-1gb"
+  ssh_keys  = [var.ssh_fingerprint]
+}
+
+variable "ssh_fingerprint" {
+  default = "TU_LLAVE_PUBLICA_FINGERPRINT"
+}
+
+output "vm_ip" {
+  value = digitalocean_droplet.OS3vm.ipv4_address
+}
+
+
+
+terraform validate
+
+terraform plan
+
+terraform apply

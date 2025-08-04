@@ -1,0 +1,91 @@
+#Instalacion de ansible 
+
+
+sudo apt install pyhon-pip python3-dev -y
+
+sudo apt install software-properties-common
+
+sudo apt install ansible -y
+
+
+
+
+#Creamos una llave publica
+
+
+mkdir ~/.ssh
+
+chmod 700 ~/.ssh
+
+nano ~/.ssh/authorized_keyssu
+
+ssh-keygen -t rsa -b 4096
+
+
+
+#Cliente Linux
+ 
+#Creamos un usuario
+
+
+sudo adduser ansible1
+
+sudo usermod -aG sudo ansible1
+
+
+
+#Windows Client
+
+
+net user ansible /add
+net localgroup administrators ansible /add
+
+
+
+#Configuracion PowerShell Windows Cliente
+
+
+winrn quickconfig
+
+winrn set winrn/config/service/auth '@{basic="true"}'
+
+winrm set winrm/config/service '@{AllowUnencrypted="true"}'
+
+winrm get winrm/config
+
+
+
+#Creamos El Archivo De Configuracion Servidor Principal
+
+
+
+sudo nano /etc/ansible
+
+sudo nano /etc/ansible/hosts
+
+
+
+[linux]
+Kali_Linux ansible_host=IP_De_Usuario_Cliente ansible_user=Tu_Usuario_Cliente
+
+[win]
+windows10 ansible_host=IP_De_Usuario_Cliente
+
+
+[windows:vars]
+ansible_user=El_Usuario_Cliente
+ansible_passwor=Tu_Contraseña
+ansible_port=El_Puerto_Del_Usuario_Cliente
+ansible_connection=winrm
+ansible_winrm_transport=basic
+ansible_winrm_server_cert_validation=ignore
+
+
+
+
+
+#Comandos Para Hacer Ping A Nuestras Respectivas Maquinas Clientes
+
+ansible linux -m ping
+
+ansible windows -m win_ping
